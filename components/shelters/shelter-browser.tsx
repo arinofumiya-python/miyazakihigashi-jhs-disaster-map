@@ -1,0 +1,488 @@
+"use client"
+
+import { useMemo, useState } from "react"
+import {
+  ExternalLink,
+  Loader2,
+  MapPin,
+  Search,
+  SlidersHorizontal,
+} from "lucide-react"
+
+import { ShelterCard } from "@/components/shelters/shelter-card"
+import {
+  DISASTER_TYPE_ORDER,
+  getDisasterLabel,
+} from "@/lib/disaster-types"
+import { haversineDistance, formatDistance } from "@/lib/geo"
+import type {
+  DisasterType,
+  Shelter,
+  ShelterWithDistance,
+} from "@/lib/types"
+import { cn } from "@/lib/utils"
+
+type SortKey = "name" | "capacity" | "distance"
+
+export function ShelterBrowser({
+  shelters,
+}: {
+  shelters: Shelter[]
+}) {
+  const [query, setQuery] = useState("")
+  const [filter, setFilter] =
+    useState<DisasterType | "all">("all")
+  const [sort, setSort] =
+    useState<SortKey>("name")
+
+  const [currentPos, setCurrentPos] =
+    useState<[number, number] | null>(null)
+
+  const [locating, setLocating] =
+    useState(false)
+
+  const [locateError, setLocateError] =
+    useState<string | null>(null)
+
+  /* ========================================
+     現在地を取得
+  ======================================== */
+
+  const findNearest = () => {
+    if (!("geolocation" in navigator)) {
+      setLocateError(
+        "この端末では現在地を取得できません",
+      )
+      return
+    }
+
+    setLocating(true)
+    setLocateError(null)
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setCurrentPos([
+          pos.coords.latitude,
+          pos.coords.longitude,
+        ])
+
+        setSort("distance")
+        setLocating(false)
+      },
+      () => {
+        setLocateError(
+          "現在地を取得できませんでした。位置情報の許可をご確認ください。",
+        )
+
+        setLocating(false)
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 30000,
+      },
+    )
+  }
+
+  /* ========================================
+     検索・絞り込み・距離計算
+  ======================================== */
+
+  const results: ShelterWithDistance[] =
+    useMemo(() => {
+      const q = query.trim().toLowerCase()
+
+      let list: ShelterWithDistance[] =
+        shelters.map((shelter) => ({
+          ...shelter,
+
+          distance: currentPos
+            ? haversineDistance(
+                currentPos[0],
+                currentPos[1],
+                shelter.latitude,
+                shelter.longitude,
+              )
+            : null,
+        }))
+
+      /* 検索 */
+      if (q) {
+        list = list.filter(
+          (shelter) =>
+            shelter.name
+              .toLowerCase()
+              .includes(q) ||
+            shelter.address
+              .toLowerCase()
+              .includes(q) ||
+            shelter.description
+              .toLowerCase()
+              .includes(q),
+        )
+      }
+
+      /* 災害種別 */
+      if (filter !== "all") {
+        list = list.filter((shelter) =>
+          shelter.disasterTypes.includes(filter),
+        )
+      }
+
+      /* 並び替え */
+      list.sort((a, b) => {
+        if (sort === "capacity") {
+          return b.capacity - a.capacity
+        }
+
+        if (sort === "distance") {
+          if (a.distance === null) return 1
+          if (b.distance === null) return -1
+
+          return a.distance - b.distance
+        }
+
+        return a.name.localeCompare(
+          b.name,
+          "ja",
+        )
+      })
+
+      return list
+    }, [
+      shelters,
+      query,
+      filter,
+      sort,
+      currentPos,
+    ])
+
+  /* ========================================
+     最寄りの避難所
+  ======================================== */
+
+  const nearest =
+    sort === "distance" &&
+    currentPos &&
+    results.length > 0
+      ? results[0]
+      : null
+
+  /* ========================================
+     Google MapsのルートURL
+  ======================================== */
+
+  const getDirectionsUrl = (
+    shelter: ShelterWithDistance,
+  ) => {
+    if (!currentPos) {
+      return `https://www.google.com/maps/search/?api=1&query=${shelter.latitude},${shelter.longitude}`
+    }
+
+    const origin = `${currentPos[0]},${currentPos[1]}`
+    const destination = `${shelter.latitude},${shelter.longitude}`
+
+    return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
+      origin,
+    )}&destination=${encodeURIComponent(
+      destination,
+    )}&travelmode=walking`
+  }
+
+  return (
+    <div>
+      {/* ========================================
+          操作パネル
+      ======================================== */}
+
+      <div className="rounded-lg border border-border bg-card p-4 shadow-sm">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end">
+          {/* ====================================
+              検索
+          ==================================== */}
+
+          <div className="flex-1">
+            <label
+              htmlFor="shelter-search"
+              className="mb-1 block text-sm font-medium"
+            >
+              避難所を検索
+            </label>
+
+            <div className="relative">
+              <Search
+                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+                aria-hidden="true"
+              />
+
+              <input
+                id="shelter-search"
+                type="search"
+                value={query}
+                onChange={(e) =>
+                  setQuery(e.target.value)
+                }
+                placeholder="名称・住所で検索"
+                className="h-10 w-full rounded-md border border-border bg-background pl-9 pr-3 text-sm outline-none focus:ring-2 focus:ring-ring"
+              />
+            </div>
+          </div>
+
+          {/* ====================================
+              並び替え
+          ==================================== */}
+
+          <div>
+            <label
+              htmlFor="shelter-sort"
+              className="mb-1 block text-sm font-medium"
+            >
+              <SlidersHorizontal
+                className="mr-1 inline size-4"
+                aria-hidden="true"
+              />
+              並び替え
+            </label>
+
+            <select
+              id="shelter-sort"
+              value={sort}
+              onChange={(e) =>
+                setSort(
+                  e.target.value as SortKey,
+                )
+              }
+              className="h-10 rounded-md border border-border bg-background px-3 text-sm outline-none focus:ring-2 focus:ring-ring"
+            >
+              <option value="name">
+                名称順（あいうえお）
+              </option>
+
+              <option value="capacity">
+                収容人数が多い順
+              </option>
+
+              <option value="distance">
+                現在地から近い順
+              </option>
+            </select>
+          </div>
+
+          {/* ====================================
+              最寄り検索
+          ==================================== */}
+
+          <div>
+            <button
+              type="button"
+              onClick={findNearest}
+              disabled={locating}
+              className="inline-flex h-10 items-center gap-2 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-60"
+            >
+              {locating ? (
+                <Loader2
+                  className="size-4 animate-spin"
+                  aria-hidden="true"
+                />
+              ) : (
+                <MapPin
+                  className="size-4"
+                  aria-hidden="true"
+                />
+              )}
+
+              {locating
+                ? "現在地を取得中..."
+                : "最寄りの避難所を探す"}
+            </button>
+          </div>
+        </div>
+
+        {/* ========================================
+            災害種別フィルタ
+        ======================================== */}
+
+        <fieldset className="mt-4 border-t border-border pt-4">
+          <legend className="mb-2 text-sm font-medium">
+            災害種別で絞り込む
+          </legend>
+
+          <div className="flex flex-wrap gap-2">
+            <FilterChip
+              active={filter === "all"}
+              onClick={() =>
+                setFilter("all")
+              }
+            >
+              すべて
+            </FilterChip>
+
+            {DISASTER_TYPE_ORDER.map(
+              (type) => (
+                <FilterChip
+                  key={type}
+                  active={filter === type}
+                  onClick={() =>
+                    setFilter(type)
+                  }
+                >
+                  {getDisasterLabel(type)}
+                </FilterChip>
+              ),
+            )}
+          </div>
+        </fieldset>
+
+        {/* ========================================
+            現在地取得エラー
+        ======================================== */}
+
+        {locateError && (
+          <p
+            role="alert"
+            className="mt-3 text-sm text-destructive"
+          >
+            {locateError}
+          </p>
+        )}
+      </div>
+
+      {/* ========================================
+          最寄りの避難所
+      ======================================== */}
+
+      {nearest && (
+        <div
+          className="mt-4 rounded-lg border border-accent/40 bg-accent/10 p-4"
+          role="status"
+        >
+          <div className="flex flex-col gap-3">
+            <div>
+              <p className="text-sm text-muted-foreground">
+                現在地から最も近い避難所
+              </p>
+
+              <p className="mt-1 text-lg font-bold text-accent">
+                {nearest.name}
+              </p>
+            </div>
+
+            {/* 距離 */}
+
+            <div className="flex items-center gap-2 text-sm">
+              <MapPin
+                className="size-4 shrink-0"
+                aria-hidden="true"
+              />
+
+              <span>
+                現在地から{" "}
+                <strong>
+                  {nearest.distance !== null
+                    ? formatDistance(
+                        nearest.distance,
+                      )
+                    : "距離不明"}
+                </strong>
+              </span>
+            </div>
+
+            {/* 住所 */}
+
+            <p className="text-sm text-muted-foreground">
+              {nearest.address}
+            </p>
+
+            {/* 行き方 */}
+
+            <a
+              href={getDirectionsUrl(nearest)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-fit items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
+            >
+              <MapPin
+                className="size-4"
+                aria-hidden="true"
+              />
+
+              行き方を見る
+
+              <ExternalLink
+                className="size-3.5"
+                aria-hidden="true"
+              />
+            </a>
+
+            <p className="text-xs text-muted-foreground">
+              Google Mapsで現在地から避難所までの徒歩ルートを表示します。
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================
+          件数
+      ======================================== */}
+
+      <p
+        className="mt-4 text-sm text-muted-foreground"
+        aria-live="polite"
+      >
+        {results.length} 件の避難所を表示中
+      </p>
+
+      {/* ========================================
+          避難所一覧
+      ======================================== */}
+
+      {results.length > 0 ? (
+        <ul className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {results.map((shelter) => (
+            <li key={shelter.id}>
+              <ShelterCard
+                shelter={shelter}
+              />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-8 rounded-lg border border-dashed border-border p-8 text-center text-muted-foreground">
+          条件に一致する避難所が見つかりませんでした。
+          検索条件を変更してください。
+        </p>
+      )}
+    </div>
+  )
+}
+
+/* ========================================
+   フィルターボタン
+======================================== */
+
+function FilterChip({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean
+  onClick: () => void
+  children: React.ReactNode
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={cn(
+        "rounded-full border px-3 py-1.5 text-sm font-medium transition-colors",
+
+        active
+          ? "border-primary bg-primary text-primary-foreground"
+          : "border-border bg-background text-foreground hover:bg-secondary",
+      )}
+    >
+      {children}
+    </button>
+  )
+}
