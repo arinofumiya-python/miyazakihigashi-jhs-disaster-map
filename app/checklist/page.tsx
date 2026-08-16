@@ -50,7 +50,6 @@ export default function ChecklistPage() {
   const [noteDraft, setNoteDraft] = useState("")
   const [loaded, setLoaded] = useState(false)
 
-  // 保存データを読み込む
   useEffect(() => {
     try {
       const savedChecked = localStorage.getItem(CHECKED_KEY)
@@ -67,7 +66,6 @@ export default function ChecklistPage() {
       if (savedCustom) {
         const parsed = JSON.parse(savedCustom)
 
-        // 以前の形式で保存された項目にも対応
         setCustomItems(
           parsed.map((item: Partial<CustomItem>) => ({
             id: item.id ?? `custom-${Date.now()}`,
@@ -104,42 +102,36 @@ export default function ChecklistPage() {
     setLoaded(true)
   }, [])
 
-  // チェック状態を保存
   useEffect(() => {
     if (!loaded) return
 
     localStorage.setItem(CHECKED_KEY, JSON.stringify(checked))
   }, [checked, loaded])
 
-  // 自分で追加した項目を保存
   useEffect(() => {
     if (!loaded) return
 
     localStorage.setItem(CUSTOM_KEY, JSON.stringify(customItems))
   }, [customItems, loaded])
 
-  // メモを保存
   useEffect(() => {
     if (!loaded) return
 
     localStorage.setItem(NOTES_KEY, JSON.stringify(notes))
   }, [notes, loaded])
 
-  // 家族人数を保存
   useEffect(() => {
     if (!loaded) return
 
     localStorage.setItem(FAMILY_KEY, String(familyCount))
   }, [familyCount, loaded])
 
-  // 持ち出し袋 / 家庭備蓄の設定を保存
   useEffect(() => {
     if (!loaded) return
 
     localStorage.setItem(LOCATION_KEY, JSON.stringify(locations))
   }, [locations, loaded])
 
-  // 最終確認日を保存
   useEffect(() => {
     if (!loaded) return
 
@@ -447,6 +439,33 @@ export default function ChecklistPage() {
           災害に備えて、必要なものを確認しましょう。
           チェック内容・メモ・追加項目はこのブラウザに自動保存されます。
         </p>
+
+        {/* 参考情報 */}
+        <div className="mt-4 rounded-lg border border-border bg-card p-4 text-sm">
+          <p className="font-semibold">
+            参考情報
+          </p>
+
+          <p className="mt-1">
+            <a
+              href="https://imacoco-navi.netlify.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary underline"
+            >
+              https://imacoco-navi.netlify.app/
+            </a>
+          </p>
+
+          <p className="mt-3 leading-6 text-muted-foreground">
+            <span className="font-semibold text-foreground">
+              備考
+            </span>
+            <br />
+            このURLは令和八年熊本地震を機に市民の方が立ち上げたHPです。
+            災害時にリアルに必要なものは何か考えるきっかけにしてください。
+          </p>
+        </div>
       </div>
 
       {/* 家族人数 */}
