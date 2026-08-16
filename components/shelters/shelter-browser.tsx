@@ -2,11 +2,11 @@
 
 import { useMemo, useState } from "react"
 import {
-  ExternalLink,
   Loader2,
   MapPin,
   Search,
   SlidersHorizontal,
+  PawPrint,
 } from "lucide-react"
 
 import { ShelterCard } from "@/components/shelters/shelter-card"
@@ -14,12 +14,16 @@ import {
   DISASTER_TYPE_ORDER,
   getDisasterLabel,
 } from "@/lib/disaster-types"
-import { haversineDistance, formatDistance } from "@/lib/geo"
+
+import { haversineDistance } from "@/lib/geo"
+
 import type {
   DisasterType,
+  PetPolicy,
   Shelter,
   ShelterWithDistance,
 } from "@/lib/types"
+
 import { cn } from "@/lib/utils"
 
 type SortKey = "name" | "capacity" | "distance"
@@ -30,8 +34,13 @@ export function ShelterBrowser({
   shelters: Shelter[]
 }) {
   const [query, setQuery] = useState("")
+
   const [filter, setFilter] =
     useState<DisasterType | "all">("all")
+
+  const [petFilter, setPetFilter] =
+    useState<PetPolicy | "all">("all")
+
   const [sort, setSort] =
     useState<SortKey>("name")
 
@@ -45,7 +54,7 @@ export function ShelterBrowser({
     useState<string | null>(null)
 
   /* ========================================
-     現在地を取得
+     現在地取得
   ======================================== */
 
   const findNearest = () => {
@@ -69,6 +78,7 @@ export function ShelterBrowser({
         setSort("distance")
         setLocating(false)
       },
+
       () => {
         setLocateError(
           "現在地を取得できませんでした。位置情報の許可をご確認ください。",
@@ -76,16 +86,16 @@ export function ShelterBrowser({
 
         setLocating(false)
       },
+
       {
         enableHighAccuracy: true,
         timeout: 10000,
-        maximumAge: 30000,
       },
     )
   }
 
   /* ========================================
-     検索・絞り込み・距離計算
+     検索・絞り込み・並び替え
   ======================================== */
 
   const results: ShelterWithDistance[] =
@@ -93,43 +103,58 @@ export function ShelterBrowser({
       const q = query.trim().toLowerCase()
 
       let list: ShelterWithDistance[] =
-        shelters.map((shelter) => ({
-          ...shelter,
+        shelters.map((s) => ({
+          ...s,
 
           distance: currentPos
             ? haversineDistance(
                 currentPos[0],
                 currentPos[1],
-                shelter.latitude,
-                shelter.longitude,
+                s.latitude,
+                s.longitude,
               )
             : null,
         }))
 
-      /* 検索 */
+      /* ------------------------------------
+         文字検索
+      ------------------------------------ */
+
       if (q) {
         list = list.filter(
-          (shelter) =>
-            shelter.name
-              .toLowerCase()
-              .includes(q) ||
-            shelter.address
-              .toLowerCase()
-              .includes(q) ||
-            shelter.description
+          (s) =>
+            s.name.toLowerCase().includes(q) ||
+            s.address.toLowerCase().includes(q) ||
+            s.description
               .toLowerCase()
               .includes(q),
         )
       }
 
-      /* 災害種別 */
+      /* ------------------------------------
+         災害種別
+      ------------------------------------ */
+
       if (filter !== "all") {
-        list = list.filter((shelter) =>
-          shelter.disasterTypes.includes(filter),
+        list = list.filter((s) =>
+          s.disasterTypes.includes(filter),
         )
       }
 
-      /* 並び替え */
+      /* ------------------------------------
+         ペット対応
+      ------------------------------------ */
+
+      if (petFilter !== "all") {
+        list = list.filter(
+          (s) => s.petPolicy === petFilter,
+        )
+      }
+
+      /* ------------------------------------
+         並び替え
+      ------------------------------------ */
+
       list.sort((a, b) => {
         if (sort === "capacity") {
           return b.capacity - a.capacity
@@ -153,6 +178,7 @@ export function ShelterBrowser({
       shelters,
       query,
       filter,
+      petFilter,
       sort,
       currentPos,
     ])
@@ -163,45 +189,27 @@ export function ShelterBrowser({
 
   const nearest =
     sort === "distance" &&
-    currentPos &&
-    results.length > 0
+    currentPos
       ? results[0]
       : null
 
-  /* ========================================
-     Google MapsのルートURL
-  ======================================== */
-
-  const getDirectionsUrl = (
-    shelter: ShelterWithDistance,
-  ) => {
-    if (!currentPos) {
-      return `https://www.google.com/maps/search/?api=1&query=${shelter.latitude},${shelter.longitude}`
-    }
-
-    const origin = `${currentPos[0]},${currentPos[1]}`
-    const destination = `${shelter.latitude},${shelter.longitude}`
-
-    return `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
-      origin,
-    )}&destination=${encodeURIComponent(
-      destination,
-    )}&travelmode=walking`
-  }
-
   return (
     <div>
+
       {/* ========================================
           操作パネル
       ======================================== */}
 
       <div className="rounded-lg border border-border bg-card p-4 shadow-sm">
+
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end">
-          {/* ====================================
+
+          {/* ------------------------------------
               検索
-          ==================================== */}
+          ------------------------------------ */}
 
           <div className="flex-1">
+
             <label
               htmlFor="shelter-search"
               className="mb-1 block text-sm font-medium"
@@ -210,6 +218,7 @@ export function ShelterBrowser({
             </label>
 
             <div className="relative">
+
               <Search
                 className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
                 aria-hidden="true"
@@ -225,14 +234,16 @@ export function ShelterBrowser({
                 placeholder="名称・住所で検索"
                 className="h-10 w-full rounded-md border border-border bg-background pl-9 pr-3 text-sm outline-none focus:ring-2 focus:ring-ring"
               />
+
             </div>
           </div>
 
-          {/* ====================================
+          {/* ------------------------------------
               並び替え
-          ==================================== */}
+          ------------------------------------ */}
 
           <div>
+
             <label
               htmlFor="shelter-sort"
               className="mb-1 block text-sm font-medium"
@@ -241,6 +252,7 @@ export function ShelterBrowser({
                 className="mr-1 inline size-4"
                 aria-hidden="true"
               />
+
               並び替え
             </label>
 
@@ -266,19 +278,22 @@ export function ShelterBrowser({
                 現在地から近い順
               </option>
             </select>
+
           </div>
 
-          {/* ====================================
+          {/* ------------------------------------
               最寄り検索
-          ==================================== */}
+          ------------------------------------ */}
 
           <div>
+
             <button
               type="button"
               onClick={findNearest}
               disabled={locating}
               className="inline-flex h-10 items-center gap-2 rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground hover:opacity-90 disabled:opacity-60"
             >
+
               {locating ? (
                 <Loader2
                   className="size-4 animate-spin"
@@ -291,11 +306,12 @@ export function ShelterBrowser({
                 />
               )}
 
-              {locating
-                ? "現在地を取得中..."
-                : "最寄りの避難所を探す"}
+              最寄りの避難所を探す
+
             </button>
+
           </div>
+
         </div>
 
         {/* ========================================
@@ -303,11 +319,13 @@ export function ShelterBrowser({
         ======================================== */}
 
         <fieldset className="mt-4 border-t border-border pt-4">
+
           <legend className="mb-2 text-sm font-medium">
             災害種別で絞り込む
           </legend>
 
           <div className="flex flex-wrap gap-2">
+
             <FilterChip
               active={filter === "all"}
               onClick={() =>
@@ -318,23 +336,90 @@ export function ShelterBrowser({
             </FilterChip>
 
             {DISASTER_TYPE_ORDER.map(
-              (type) => (
+              (t) => (
                 <FilterChip
-                  key={type}
-                  active={filter === type}
+                  key={t}
+                  active={filter === t}
                   onClick={() =>
-                    setFilter(type)
+                    setFilter(t)
                   }
                 >
-                  {getDisasterLabel(type)}
+                  {getDisasterLabel(t)}
                 </FilterChip>
               ),
             )}
+
           </div>
+
         </fieldset>
 
         {/* ========================================
-            現在地取得エラー
+            ペット対応フィルタ
+        ======================================== */}
+
+        <fieldset className="mt-4 border-t border-border pt-4">
+
+          <legend className="mb-2 flex items-center gap-1.5 text-sm font-medium">
+
+            <PawPrint
+              className="size-4"
+              aria-hidden="true"
+            />
+
+            ペット対応で絞り込む
+
+          </legend>
+
+          <div className="flex flex-wrap gap-2">
+
+            <PetFilterChip
+              active={petFilter === "all"}
+              onClick={() =>
+                setPetFilter("all")
+              }
+            >
+              すべて
+            </PetFilterChip>
+
+            <PetFilterChip
+              active={
+                petFilter === "none"
+              }
+              onClick={() =>
+                setPetFilter("none")
+              }
+            >
+              ペット完全不可
+            </PetFilterChip>
+
+            <PetFilterChip
+              active={
+                petFilter === "同行避難"
+              }
+              onClick={() =>
+                setPetFilter("同行避難")
+              }
+            >
+              同行避難
+            </PetFilterChip>
+
+            <PetFilterChip
+              active={
+                petFilter === "同室避難"
+              }
+              onClick={() =>
+                setPetFilter("同室避難")
+              }
+            >
+              同室避難
+            </PetFilterChip>
+
+          </div>
+
+        </fieldset>
+
+        {/* ========================================
+            現在地エラー
         ======================================== */}
 
         {locateError && (
@@ -345,10 +430,11 @@ export function ShelterBrowser({
             {locateError}
           </p>
         )}
+
       </div>
 
       {/* ========================================
-          最寄りの避難所
+          最寄り結果
       ======================================== */}
 
       {nearest && (
@@ -356,68 +442,17 @@ export function ShelterBrowser({
           className="mt-4 rounded-lg border border-accent/40 bg-accent/10 p-4"
           role="status"
         >
-          <div className="flex flex-col gap-3">
-            <div>
-              <p className="text-sm text-muted-foreground">
-                現在地から最も近い避難所
-              </p>
+          <p className="text-sm">
 
-              <p className="mt-1 text-lg font-bold text-accent">
-                {nearest.name}
-              </p>
-            </div>
+            現在地から最も近い避難所は{" "}
 
-            {/* 距離 */}
+            <span className="font-bold text-accent">
+              {nearest.name}
+            </span>
 
-            <div className="flex items-center gap-2 text-sm">
-              <MapPin
-                className="size-4 shrink-0"
-                aria-hidden="true"
-              />
+            {" "}です。
 
-              <span>
-                現在地から{" "}
-                <strong>
-                  {nearest.distance !== null
-                    ? formatDistance(
-                        nearest.distance,
-                      )
-                    : "距離不明"}
-                </strong>
-              </span>
-            </div>
-
-            {/* 住所 */}
-
-            <p className="text-sm text-muted-foreground">
-              {nearest.address}
-            </p>
-
-            {/* 行き方 */}
-
-            <a
-              href={getDirectionsUrl(nearest)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex w-fit items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90"
-            >
-              <MapPin
-                className="size-4"
-                aria-hidden="true"
-              />
-
-              行き方を見る
-
-              <ExternalLink
-                className="size-3.5"
-                aria-hidden="true"
-              />
-            </a>
-
-            <p className="text-xs text-muted-foreground">
-              Google Mapsで現在地から避難所までの徒歩ルートを表示します。
-            </p>
-          </div>
+          </p>
         </div>
       )}
 
@@ -433,34 +468,80 @@ export function ShelterBrowser({
       </p>
 
       {/* ========================================
-          避難所一覧
+          一覧
       ======================================== */}
 
       {results.length > 0 ? (
+
         <ul className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {results.map((shelter) => (
-            <li key={shelter.id}>
-              <ShelterCard
-                shelter={shelter}
-              />
-            </li>
-          ))}
+
+          {results.map(
+            (shelter) => (
+
+              <li key={shelter.id}>
+
+                <ShelterCard
+                  shelter={shelter}
+                />
+
+              </li>
+
+            ),
+          )}
+
         </ul>
+
       ) : (
+
         <p className="mt-8 rounded-lg border border-dashed border-border p-8 text-center text-muted-foreground">
+
           条件に一致する避難所が見つかりませんでした。
           検索条件を変更してください。
+
         </p>
+
       )}
+
     </div>
   )
 }
 
 /* ========================================
-   フィルターボタン
+   災害種別フィルタボタン
 ======================================== */
 
 function FilterChip({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean
+  onClick: () => void
+  children: React.ReactNode
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={active}
+      className={cn(
+        "rounded-full border px-3 py-1.5 text-sm font-medium transition-colors",
+
+        active
+          ? "border-primary bg-primary text-primary-foreground"
+          : "border-border bg-background text-foreground hover:bg-secondary",
+      )}
+    >
+      {children}
+    </button>
+  )
+}
+
+/* ========================================
+   ペット対応フィルタボタン
+======================================== */
+
+function PetFilterChip({
   active,
   onClick,
   children,
