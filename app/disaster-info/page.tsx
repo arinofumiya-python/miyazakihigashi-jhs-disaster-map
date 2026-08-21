@@ -46,7 +46,7 @@ export default function DisasterInfoPage() {
         />
       </div>
 
-      <section className="mx-auto grid max-w-6xl gap-4 px-4 pb-12 sm:grid-cols-2">
+      <section className="mx-auto grid max-w-3xl gap-4 px-4 pb-8 sm:grid-cols-2">
         {hazards.map(({ title, icon: Icon, color, text }) => (
           <article
             key={title}
