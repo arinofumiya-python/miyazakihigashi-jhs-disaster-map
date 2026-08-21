@@ -279,6 +279,10 @@ export default function ChecklistPage() {
   ) {
     const isChecked = checked[item.id] ?? false
     const note = notes[item.id] ?? ""
+    const itemNote =
+      "note" in item && typeof item.note === "string"
+        ? item.note
+        : undefined
 
     return (
       <div
@@ -313,9 +317,9 @@ export default function ChecklistPage() {
               )}
             </div>
 
-            {"note" in item && item.note && (
+            {itemNote && (
               <p className="mt-1 text-xs leading-5 text-muted-foreground">
-                {item.note}
+                {itemNote}
               </p>
             )}
 

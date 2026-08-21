@@ -37,30 +37,15 @@ export default function DisasterInfoPage() {
         description="宮東地区で想定される災害と、日頃からできる備えを確認しましょう。"
       />
 
-      {/* 災害情報の画像 */}
-      <div className="mx-auto max-w-3xl px-4 pb-8">
-        <img
-          src="https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/bousai%20picture.jpg"
-          alt="防災・災害情報"
-          className="h-auto w-full rounded-xl object-cover shadow-md"
-        />
-      </div>
-
-      {/* 災害の説明カード */}
       <section className="mx-auto grid max-w-3xl gap-4 px-4 pb-12 sm:grid-cols-2">
         {hazards.map(({ title, icon: Icon, color, text }) => (
           <article
             key={title}
             className="rounded-lg border border-border bg-card p-6"
           >
-            <Icon
-              className={`size-8 ${color}`}
-              aria-hidden="true"
-            />
+            <Icon className={`size-8 ${color}`} aria-hidden="true" />
 
-            <h2 className="mt-4 text-xl font-bold">
-              {title}
-            </h2>
+            <h2 className="mt-4 text-xl font-bold">{title}</h2>
 
             <p className="mt-2 leading-7 text-muted-foreground">
               {text}
