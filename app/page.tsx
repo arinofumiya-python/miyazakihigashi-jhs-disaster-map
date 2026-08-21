@@ -59,7 +59,7 @@ export default function HomePage() {
             </h2>
 
             <p className="mt-1 text-sm text-muted-foreground">
-              避難所の位置と、国土地理院のハザードマップを重ねて確認できます。
+              避難所の位置とその場所の詳細がわかります
             </p>
           </div>
 
