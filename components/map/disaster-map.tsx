@@ -355,11 +355,11 @@ export default function DisasterMap({
           />
         ))}
 
-        {/* 青色の危険ポイント */}
+        {/* 赤色の危険ポイント */}
 
         {BLUE_POINTS.map((point, index) => (
           <CircleMarker
-            key={`blue-point-${index}`}
+            key={`red-point-${index}`}
             center={point}
             radius={10}
             pathOptions={{
