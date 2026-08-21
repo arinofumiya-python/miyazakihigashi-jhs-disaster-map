@@ -75,7 +75,7 @@ const MIYATO_BOUNDS: [
 ]
 
 /* ========================================
-   安全な経路
+   危険な道
 ======================================== */
 
 const SAFE_ROUTES: [number, number][][] = [
@@ -123,7 +123,6 @@ const SAFE_ROUTES: [number, number][][] = [
     [31.928013406290038, 131.42640855771916],
     [31.9250526919097, 131.4254924130221],
   ],
-
   [
     [31.916752693008647, 131.43593715494512],
     [31.916220543788455, 131.43596126757924],
@@ -171,7 +170,7 @@ const SAFE_ROUTES: [number, number][][] = [
 ]
 
 /* ========================================
-   青色のポイント
+   青色の危険ポイント
 ======================================== */
 
 const BLUE_POINTS: [number, number][] = [
@@ -334,8 +333,6 @@ export default function DisasterMap({
       >
         <MapResizeFix />
 
-        {/* 初期表示を指定範囲に合わせる */}
-
         {!focusShelterId && <FitMiyatoBounds />}
 
         {/* OpenStreetMap */}
@@ -360,11 +357,11 @@ export default function DisasterMap({
           ) : null,
         )}
 
-        {/* 安全な経路 */}
+        {/* 緑色の危険な道 */}
 
         {SAFE_ROUTES.map((route, index) => (
           <Polyline
-            key={`safe-route-${index}`}
+            key={`danger-route-${index}`}
             positions={route}
             pathOptions={{
               color: "#22c55e",
@@ -374,7 +371,7 @@ export default function DisasterMap({
           />
         ))}
 
-        {/* 青色のポイント */}
+        {/* 青色の危険ポイント */}
 
         {BLUE_POINTS.map((point, index) => (
           <CircleMarker
@@ -450,6 +447,24 @@ export default function DisasterMap({
 
         <CoordinatesDisplay />
       </MapContainer>
+
+      {/* ========================================
+          危険な道についての注意書き
+      ======================================== */}
+
+      <div
+        style={{
+          padding: "12px 16px",
+          backgroundColor: "#f8fafc",
+          borderTop: "1px solid #e2e8f0",
+          textAlign: "center",
+          fontSize: "14px",
+          fontWeight: "bold",
+          color: "#334155",
+        }}
+      >
+        ⚠️ 青色の点・緑色の線は危険な道を示しています
+      </div>
     </div>
   )
 }
