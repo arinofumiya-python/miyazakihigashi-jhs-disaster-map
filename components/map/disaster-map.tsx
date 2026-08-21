@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react"
 import {
+  CircleMarker,
   MapContainer,
   Marker,
   Popup,
@@ -14,7 +15,7 @@ import {
 import "leaflet/dist/leaflet.css"
 
 import { HAZARD_LAYERS } from "@/lib/hazard-layers"
-import { MAP_CENTER, MAP_INITIAL_ZOOM } from "@/lib/shelters"
+import { MAP_CENTER } from "@/lib/shelters"
 import {
   createCurrentLocationIcon,
   createShelterIcon,
@@ -63,22 +64,6 @@ function MapResizeFix() {
 
 /* ========================================
    指定された宮東地区の範囲
-
-   左上
-   31.935980909027702, 131.4163624006582
-
-   右上
-   31.93234275318809, 131.4465752587687
-
-   左下
-   31.913759926255338, 131.41626033014597
-
-   右下
-   31.91250360896004, 131.44208415819273
-
-   Leafletでは
-   南西 → 北東
-   で指定する。
 ======================================== */
 
 const MIYATO_BOUNDS: [
@@ -141,6 +126,18 @@ const SAFE_ROUTES: [number, number][][] = [
 ]
 
 /* ========================================
+   青色のポイント
+======================================== */
+
+const BLUE_POINTS: [number, number][] = [
+  [31.931730450441727, 131.4308392729541],
+  [31.921238791996803, 131.43588735976547],
+  [31.917013725882978, 131.4359655062107],
+  [31.922859959169042, 131.42480725212977],
+  [31.928627080306498, 131.4258853043571],
+]
+
+/* ========================================
    ハザードレイヤー初期状態
 ======================================== */
 
@@ -195,10 +192,6 @@ export default function DisasterMap({
   const [currentPos, setCurrentPos] =
     useState<[number, number] | null>(null)
 
-  /* ========================================
-     現在地から避難所までの距離
-  ======================================== */
-
   const sheltersWithDistance: ShelterWithDistance[] =
     useMemo(() => {
       return shelters.map((shelter) => ({
@@ -214,20 +207,12 @@ export default function DisasterMap({
       }))
     }, [shelters, currentPos])
 
-  /* ========================================
-     ハザードレイヤー切り替え
-  ======================================== */
-
   const toggleLayer = (id: DisasterType) => {
     setActiveLayers((prev) => ({
       ...prev,
       [id]: !prev[id],
     }))
   }
-
-  /* ========================================
-     地図中心
-  ======================================== */
 
   const center = useMemo<[number, number]>(() => {
     if (focusShelterId) {
@@ -257,10 +242,6 @@ export default function DisasterMap({
         minHeight: "400px",
       }}
     >
-      {/* ========================================
-          ハザードマップ操作パネル
-      ======================================== */}
-
       <HazardLayerPanel
         active={activeLayers}
         onToggle={toggleLayer}
@@ -270,29 +251,19 @@ export default function DisasterMap({
         }
       />
 
-      {/* ========================================
-          Leaflet地図
-      ======================================== */}
-
       <MapContainer
         center={center}
         zoom={focusShelterId ? 16 : 15}
-
         zoomAnimation={true}
         zoomAnimationThreshold={4}
         fadeAnimation={true}
         markerZoomAnimation={true}
-
         scrollWheelZoom={true}
-
         maxBounds={MIYATO_BOUNDS}
         maxBoundsViscosity={1.0}
-
         minZoom={15}
         maxZoom={19}
-
         className="h-full w-full"
-
         style={{
           width: "100%",
           height: "100%",
@@ -302,15 +273,9 @@ export default function DisasterMap({
       >
         <MapResizeFix />
 
-        {/* ========================================
-            初期表示を指定範囲に合わせる
-        ======================================== */}
-
         {!focusShelterId && <FitMiyatoBounds />}
 
-        {/* ========================================
-            OpenStreetMap
-        ======================================== */}
+        {/* OpenStreetMap */}
 
         <TileLayer
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -318,9 +283,7 @@ export default function DisasterMap({
           maxZoom={19}
         />
 
-        {/* ========================================
-            国土地理院ハザードレイヤー
-        ======================================== */}
+        {/* 国土地理院ハザードレイヤー */}
 
         {HAZARD_LAYERS.map((layer) =>
           activeLayers[layer.id] ? (
@@ -351,6 +314,24 @@ export default function DisasterMap({
         ))}
 
         {/* ========================================
+            青色のポイント
+        ======================================== */}
+
+        {BLUE_POINTS.map((point, index) => (
+          <CircleMarker
+            key={`blue-point-${index}`}
+            center={point}
+            radius={10}
+            pathOptions={{
+              color: "#2563eb",
+              fillColor: "#2563eb",
+              fillOpacity: 1,
+              weight: 1,
+            }}
+          />
+        ))}
+
+        {/* ========================================
             避難所マーカー
         ======================================== */}
 
@@ -371,9 +352,7 @@ export default function DisasterMap({
             </Marker>
           ))}
 
-        {/* ========================================
-            現在地マーカー
-        ======================================== */}
+        {/* 現在地マーカー */}
 
         {currentPos && (
           <Marker
@@ -385,24 +364,18 @@ export default function DisasterMap({
           </Marker>
         )}
 
-        {/* ========================================
-            縮尺
-        ======================================== */}
+        {/* 縮尺 */}
 
         <ScaleControl
           position="bottomleft"
           imperial={false}
         />
 
-        {/* ========================================
-            地図検索
-        ======================================== */}
+        {/* 地図検索 */}
 
         <SearchControl />
 
-        {/* ========================================
-            現在地
-        ======================================== */}
+        {/* 現在地 */}
 
         <LocateControl
           onLocated={(lat, lng) => {
@@ -410,17 +383,13 @@ export default function DisasterMap({
           }}
         />
 
-        {/* ========================================
-            全画面表示
-        ======================================== */}
+        {/* 全画面表示 */}
 
         <FullscreenControl
           containerRef={containerRef}
         />
 
-        {/* ========================================
-            座標表示
-        ======================================== */}
+        {/* 座標表示 */}
 
         <CoordinatesDisplay />
       </MapContainer>
