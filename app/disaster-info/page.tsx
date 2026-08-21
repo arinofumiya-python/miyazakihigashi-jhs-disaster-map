@@ -28,6 +28,9 @@ const hazards = [
   },
 ]
 
+const referenceImageUrl =
+  "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/bousai%20picture.jpg"
+
 export default function DisasterInfoPage() {
   return (
     <>
@@ -37,7 +40,7 @@ export default function DisasterInfoPage() {
         description="宮東地区で想定される災害と、日頃からできる備えを確認しましょう。"
       />
 
-      <section className="mx-auto grid max-w-3xl gap-4 px-4 pb-12 sm:grid-cols-2">
+      <section className="mx-auto grid max-w-3xl gap-4 px-4 pb-8 sm:grid-cols-2">
         {hazards.map(({ title, icon: Icon, color, text }) => (
           <article
             key={title}
@@ -55,41 +58,28 @@ export default function DisasterInfoPage() {
       </section>
 
       <section className="mx-auto max-w-3xl px-4 pb-12">
-        <article className="overflow-hidden rounded-lg border border-border bg-card">
-          <div className="p-6">
-            <h2 className="text-xl font-bold">災害に備える心構え</h2>
+        <article className="rounded-lg border border-border bg-card p-6">
+          <h2 className="text-xl font-bold">参考情報</h2>
+
+          <p className="mt-2">
+            <a
+              href={referenceImageUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-primary underline underline-offset-4 hover:opacity-80"
+            >
+              bousai picture.jpg
+            </a>
+          </p>
+
+          <div className="mt-6 border-t border-border pt-6">
+            <h3 className="font-semibold">備考</h3>
 
             <p className="mt-2 leading-7 text-muted-foreground">
-              宮崎東中学校の生徒が制作した、災害に備える心構えを示す資料です。
+              このURLは宮崎東中学校の生徒が制作した
+              <br className="hidden sm:block" />
+              災害に備える心構えを示すものです
             </p>
-          </div>
-
-          <div className="border-t border-border bg-muted/30 p-4">
-            <img
-              src="https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/bousai%20picture.jpg"
-              alt="宮崎東中学校の生徒が制作した、災害に備える心構えを示す資料"
-              className="mx-auto h-auto max-h-[600px] w-full rounded-md object-contain"
-            />
-          </div>
-
-          <div className="border-t border-border p-6">
-            <div className="space-y-4">
-              <div>
-                <h3 className="font-semibold">参考情報</h3>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  bousai picture.jpg
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold">備考</h3>
-                <p className="mt-1 leading-7 text-muted-foreground">
-                  このURLは宮崎東中学校の生徒が制作した
-                  <br className="hidden sm:block" />
-                  災害に備える心構えを示すものです
-                </p>
-              </div>
-            </div>
           </div>
         </article>
       </section>
