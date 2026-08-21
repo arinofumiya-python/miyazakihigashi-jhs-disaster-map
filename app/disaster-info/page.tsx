@@ -38,7 +38,7 @@ export default function DisasterInfoPage() {
       />
 
       {/* 災害情報の画像 */}
-      <div className="mx-auto max-w-6xl px-4 pb-8">
+      <div className="mx-auto max-w-3xl px-4 pb-8">
         <img
           src="https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/bousai%20picture.jpg"
           alt="防災・災害情報"
@@ -46,7 +46,8 @@ export default function DisasterInfoPage() {
         />
       </div>
 
-      <section className="mx-auto grid max-w-3xl gap-4 px-4 pb-8 sm:grid-cols-2">
+      {/* 災害の説明カード */}
+      <section className="mx-auto grid max-w-3xl gap-4 px-4 pb-12 sm:grid-cols-2">
         {hazards.map(({ title, icon: Icon, color, text }) => (
           <article
             key={title}
