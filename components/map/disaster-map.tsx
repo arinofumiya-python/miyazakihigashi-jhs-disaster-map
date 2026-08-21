@@ -236,10 +236,6 @@ export default function DisasterMap({
   const [currentPos, setCurrentPos] =
     useState<[number, number] | null>(null)
 
-  /* ========================================
-     現在地から避難所までの距離
-  ======================================== */
-
   const sheltersWithDistance: ShelterWithDistance[] =
     useMemo(() => {
       return shelters.map((shelter) => ({
@@ -255,20 +251,12 @@ export default function DisasterMap({
       }))
     }, [shelters, currentPos])
 
-  /* ========================================
-     ハザードレイヤー切り替え
-  ======================================== */
-
   const toggleLayer = (id: DisasterType) => {
     setActiveLayers((prev) => ({
       ...prev,
       [id]: !prev[id],
     }))
   }
-
-  /* ========================================
-     地図中心
-  ======================================== */
 
   const center = useMemo<[number, number]>(() => {
     if (focusShelterId) {
@@ -298,8 +286,6 @@ export default function DisasterMap({
         minHeight: "400px",
       }}
     >
-      {/* ハザードマップ操作パネル */}
-
       <HazardLayerPanel
         active={activeLayers}
         onToggle={toggleLayer}
@@ -308,8 +294,6 @@ export default function DisasterMap({
           setShowShelters((value) => !value)
         }
       />
-
-      {/* Leaflet地図 */}
 
       <MapContainer
         center={center}
@@ -418,18 +402,12 @@ export default function DisasterMap({
           </Marker>
         )}
 
-        {/* 縮尺 */}
-
         <ScaleControl
           position="bottomleft"
           imperial={false}
         />
 
-        {/* 地図検索 */}
-
         <SearchControl />
-
-        {/* 現在地 */}
 
         <LocateControl
           onLocated={(lat, lng) => {
@@ -437,34 +415,38 @@ export default function DisasterMap({
           }}
         />
 
-        {/* 全画面表示 */}
-
         <FullscreenControl
           containerRef={containerRef}
         />
+
+        {/* ========================================
+            危険な道についての注意書き
+        ======================================== */}
+
+        <div
+          style={{
+            position: "absolute",
+            bottom: "45px",
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 1000,
+            padding: "8px 14px",
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
+            borderRadius: "8px",
+            fontSize: "13px",
+            fontWeight: "bold",
+            color: "#334155",
+            whiteSpace: "nowrap",
+            boxShadow: "0 2px 6px rgba(0, 0, 0, 0.2)",
+          }}
+        >
+          ⚠️ 青色の点・緑色の線は危険な道を示しています
+        </div>
 
         {/* 座標表示 */}
 
         <CoordinatesDisplay />
       </MapContainer>
-
-      {/* ========================================
-          危険な道についての注意書き
-      ======================================== */}
-
-      <div
-        style={{
-          padding: "12px 16px",
-          backgroundColor: "#f8fafc",
-          borderTop: "1px solid #e2e8f0",
-          textAlign: "center",
-          fontSize: "14px",
-          fontWeight: "bold",
-          color: "#334155",
-        }}
-      >
-        ⚠️ 青色の点・緑色の線は危険な道を示しています
-      </div>
     </div>
   )
 }
