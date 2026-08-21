@@ -1,1 +1,0 @@
-# miyazakihigashi-jhs-disaster-map
