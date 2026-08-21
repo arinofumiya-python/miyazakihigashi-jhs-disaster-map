@@ -53,6 +53,46 @@ export default function DisasterInfoPage() {
           </article>
         ))}
       </section>
+
+      <section className="mx-auto max-w-3xl px-4 pb-12">
+        <article className="overflow-hidden rounded-lg border border-border bg-card">
+          <div className="p-6">
+            <h2 className="text-xl font-bold">災害に備える心構え</h2>
+
+            <p className="mt-2 leading-7 text-muted-foreground">
+              宮崎東中学校の生徒が制作した、災害に備える心構えを示す資料です。
+            </p>
+          </div>
+
+          <div className="border-t border-border bg-muted/30 p-4">
+            <img
+              src="https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/bousai%20picture.jpg"
+              alt="宮崎東中学校の生徒が制作した、災害に備える心構えを示す資料"
+              className="mx-auto h-auto max-h-[600px] w-full rounded-md object-contain"
+            />
+          </div>
+
+          <div className="border-t border-border p-6">
+            <div className="space-y-4">
+              <div>
+                <h3 className="font-semibold">参考情報</h3>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  bousai picture.jpg
+                </p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold">備考</h3>
+                <p className="mt-1 leading-7 text-muted-foreground">
+                  このURLは宮崎東中学校の生徒が制作した
+                  <br className="hidden sm:block" />
+                  災害に備える心構えを示すものです
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
     </>
   )
 }
