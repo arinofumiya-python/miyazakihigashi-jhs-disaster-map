@@ -360,7 +360,7 @@ export const SHELTERS: Shelter[] = [
 
     longitude: 131.43679,
 
-    capacity: 2108,
+    capacity: 2000,
 
     disasterTypes: [
       "earthquake",
@@ -369,7 +369,7 @@ export const SHELTERS: Shelter[] = [
     ],
 
     facilities: [
-      "チマッチ神父記念体育館",
+      "体育館",
       "武道館",
     ],
 
