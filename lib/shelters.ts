@@ -16,7 +16,6 @@ export const MAP_INITIAL_ZOOM = 14
 // ========================================
 
 export const SHELTERS: Shelter[] = [
-
   // ========================================
   // 宮崎東中学校
   // ========================================
@@ -360,7 +359,7 @@ export const SHELTERS: Shelter[] = [
 
     longitude: 131.43679,
 
-    capacity: 2000,
+    capacity: 2108,
 
     disasterTypes: [
       "earthquake",
@@ -369,7 +368,7 @@ export const SHELTERS: Shelter[] = [
     ],
 
     facilities: [
-      "体育館",
+      "チマッチ神父記念体育館",
       "武道館",
     ],
 
@@ -394,6 +393,169 @@ export const SHELTERS: Shelter[] = [
       "ペット受け入れ完全不可。車椅子スロープ・障がい者用トイレ・オストメイト対応トイレはいずれも武道館にあります。",
 
     lastUpdated: "2026-09-09",
+  },
+
+  // ========================================
+  // 宮崎市男女共同参画センター
+  // ========================================
+
+  {
+    id: "miyazaki-gender-equality-center",
+
+    name: "宮崎市男女共同参画センター",
+
+    address:
+      "〒880-0879 宮崎県宮崎市宮崎駅東3丁目6-7",
+
+    phone: "0985-25-2055",
+
+    latitude: 31.919701943090377,
+
+    longitude: 131.4351254348271,
+
+    capacity: 121,
+
+    disasterTypes: [
+      "earthquake",
+      "flood",
+      "tsunami",
+    ],
+
+    facilities: [
+      "講習室1",
+      "講習室2",
+      "視聴覚室",
+      "ホール",
+    ],
+
+    accessibility: [
+      "車椅子スロープあり",
+      "障がい者用トイレあり",
+    ],
+
+    openingHours: "災害時に開設",
+
+    petPolicy: "none",
+
+    photo: [
+      "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/ChatGPT%20Image%202026%E5%B9%B49%E6%9C%8810%E6%97%A5%2006_12_04.png",
+    ],
+
+    description:
+      "宮崎市男女共同参画センターは、地震・風水害・津波に対応する指定避難所です。想定収容人数は121人です。",
+
+    notes:
+      "ペット受け入れ不可。オストメイト対応トイレなし。車椅子スロープあり。障がい者用トイレあり。",
+
+    lastUpdated: "2026-09-10",
+  },
+
+  // ========================================
+  // 九州森林管理局宮崎森林管理署
+  // ========================================
+
+  {
+    id: "miyazaki-forest-management-office",
+
+    name: "九州森林管理局宮崎森林管理署",
+
+    address:
+      "〒880-0844 宮崎県宮崎市柳丸町388-5",
+
+    phone: "0985-29-2311",
+
+    latitude: 31.9240097,
+
+    longitude: 131.4323482,
+
+    capacity: 39,
+
+    disasterTypes: [
+      "earthquake",
+      "flood",
+      "tsunami",
+    ],
+
+    facilities: [
+      "会議室",
+    ],
+
+    accessibility: [
+      "車椅子スロープなし",
+      "障がい者用トイレあり",
+    ],
+
+    openingHours: "災害時に開設",
+
+    petPolicy: "none",
+
+    photo: [
+      "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-09-10%20062240.png",
+    ],
+
+    description:
+      "九州森林管理局宮崎森林管理署は、地震・風水害・津波に対応する指定避難所です。想定収容人数は39人です。",
+
+    notes:
+      "ペット受け入れ不可。車椅子スロープなし。障がい者用トイレあり。オストメイト対応トイレなし。",
+
+    lastUpdated: "2026-09-10",
+  },
+
+  // ========================================
+  // 宮崎市教育情報研修センター
+  // ========================================
+
+  {
+    id: "miyazaki-education-information-training-center",
+
+    name: "宮崎市教育情報研修センター",
+
+    address:
+      "〒880-0803 宮崎県宮崎市旭1丁目4番1号",
+
+    phone: "0985-28-2426",
+
+    latitude: 31.90993732236734,
+
+    longitude: 131.42594509866518,
+
+    capacity: 235,
+
+    disasterTypes: [
+      "earthquake",
+      "flood",
+      "tsunami",
+    ],
+
+    facilities: [
+      "大研修室",
+      "中研修室",
+      "多目的研修室",
+      "コンピュータ研修室",
+      "マルチメディア開発室",
+    ],
+
+    accessibility: [
+      "車椅子スロープあり",
+      "障がい者用トイレあり",
+    ],
+
+    openingHours: "災害時に開設",
+
+    petPolicy: "none",
+
+    photo: [
+      "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/r5_00011_s.jpg",
+    ],
+
+    description:
+      "宮崎市教育情報研修センターは、地震・風水害・津波に対応する指定避難所です。想定収容人数は235人です。",
+
+    notes:
+      "オストメイト対応トイレなし。車椅子スロープあり。障がい者用トイレあり。",
+
+    lastUpdated: "2026-09-10",
   },
 ]
 
