@@ -341,6 +341,60 @@ export const SHELTERS: Shelter[] = [
 
     lastUpdated: "2026-08-16",
   },
+
+  // ========================================
+  // 日向学院
+  // ========================================
+
+  {
+    id: "hyuga-gakuin",
+
+    name: "日向学院",
+
+    address:
+      "〒880-0878 宮崎県宮崎市大和町110",
+
+    phone: "0985-22-8296",
+
+    latitude: 31.91739,
+
+    longitude: 131.43679,
+
+    capacity: 2108,
+
+    disasterTypes: [
+      "earthquake",
+      "flood",
+      "tsunami",
+    ],
+
+    facilities: [
+      "チマッチ神父記念体育館",
+      "武道館",
+    ],
+
+    accessibility: [
+      "車椅子スロープあり（武道館）",
+      "障がい者用トイレあり（武道館）",
+      "オストメイト対応トイレあり（武道館）",
+    ],
+
+    openingHours: "災害時に開設",
+
+    petPolicy: "none",
+
+    photo: [
+      "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-09-09%20220108.png",
+    ],
+
+    description:
+      "日向学院は、地震・風水害・津波に対応する指定避難所です。想定収容人数は2,108人です。",
+
+    notes:
+      "ペット受け入れ完全不可。車椅子スロープ・障がい者用トイレ・オストメイト対応トイレはいずれも武道館にあります。",
+
+    lastUpdated: "2026-09-09",
+  },
 ]
 
 // ========================================
