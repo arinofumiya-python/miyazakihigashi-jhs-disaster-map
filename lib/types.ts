@@ -44,6 +44,9 @@ export interface Shelter {
 
   website?: string
 
+  /** Google Maps 埋め込みURL */
+  googleMapEmbedUrl?: string
+
   /** 代表写真（複数可） */
   photo: string[]
 
