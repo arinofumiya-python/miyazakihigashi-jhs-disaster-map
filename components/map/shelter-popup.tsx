@@ -11,21 +11,24 @@ export function ShelterPopup({
   shelter: ShelterWithDistance
 }) {
   return (
-    <div className="min-w-56 max-w-64 text-foreground">
+    <div className="min-w-56 max-w-72 text-foreground">
 
       {/* =========================
-          避難所写真
+          Google Maps
       ========================== */}
-      {shelter.photo && shelter.photo.length > 0 && (
-        <img
-          src={shelter.photo[0]}
-          alt={`${shelter.name}の写真`}
-          className="mb-3 h-32 w-full rounded-md object-cover"
-          loading="lazy"
-          onError={(e) => {
-            e.currentTarget.style.display = "none"
-          }}
-        />
+      {shelter.googleMapEmbedUrl && (
+        <div className="mb-3 overflow-hidden rounded-md">
+          <iframe
+            src={shelter.googleMapEmbedUrl}
+            width="100%"
+            height="220"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
+            title={`${shelter.name}のGoogle Maps`}
+          />
+        </div>
       )}
 
       {/* =========================
