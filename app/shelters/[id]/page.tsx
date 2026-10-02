@@ -116,7 +116,7 @@ export default async function ShelterDetailPage({
           label="電話番号"
         >
           <a
-            href={`tel:${shelter.phone}`}
+            href={"tel:" + shelter.phone}
             className="text-primary underline"
           >
             {shelter.phone}
