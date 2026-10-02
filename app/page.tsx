@@ -5,7 +5,7 @@ import {
   Map as MapIcon,
 } from "lucide-react"
 import { getShelters, MAP_CENTER } from "@/lib/shelters"
-import { MapView } from "@/components/map/map-view"
+import { GoogleMapsEmbed } from "@/components/map/google-maps-embed"
 
 export default function HomePage() {
   const shelters = getShelters()
@@ -73,7 +73,7 @@ export default function HomePage() {
         </div>
 
         <div className="h-[70vh] min-h-96 overflow-hidden rounded-lg border border-border shadow-sm">
-          <MapView shelters={shelters} />
+          <GoogleMapsEmbed shelters={shelters} />
         </div>
 
         <p className="mt-2 text-xs text-muted-foreground">

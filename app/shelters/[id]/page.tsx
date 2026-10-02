@@ -13,7 +13,7 @@ import {
   Users,
 } from "lucide-react"
 import { LazyImage } from "@/components/lazy-image"
-import { MapView } from "@/components/map/map-view"
+import { GoogleMapsEmbed } from "@/components/map/google-maps-embed"
 import { getDisasterColor, getDisasterLabel } from "@/lib/disaster-types"
 import { getShelterById, getShelters } from "@/lib/shelters"
 
@@ -157,7 +157,7 @@ export default async function ShelterDetailPage({
       <section className="mt-8">
         <h2 className="mb-3 text-lg font-bold">地図</h2>
         <div className="h-[50vh] min-h-72 overflow-hidden rounded-lg border border-border shadow-sm">
-          <MapView shelters={allShelters} focusShelterId={shelter.id} />
+          <GoogleMapsEmbed shelters={allShelters} focusShelterId={shelter.id} />
         </div>
       </section>
 

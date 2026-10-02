@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { PageHeader } from "@/components/page-header"
 import { ShelterBrowser } from "@/components/shelters/shelter-browser"
-import { MapView } from "@/components/map/map-view"
+import { GoogleMapsEmbed } from "@/components/map/google-maps-embed"
 import { getShelters } from "@/lib/shelters"
 
 export const metadata: Metadata = {
@@ -80,7 +80,7 @@ export default function SheltersPage() {
         <h2 className="mb-3 text-lg font-bold">地図で見る</h2>
 
         <div className="h-[60vh] min-h-80 overflow-hidden rounded-lg border border-border shadow-sm">
-          <MapView shelters={shelters} />
+          <GoogleMapsEmbed shelters={shelters} />
         </div>
       </section>
 
