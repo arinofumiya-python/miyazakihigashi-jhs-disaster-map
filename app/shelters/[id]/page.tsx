@@ -92,7 +92,7 @@ export default async function ShelterDetailPage({
             loading="lazy"
             allowFullScreen
             referrerPolicy="no-referrer-when-downgrade"
-            title={`${shelter.name}のGoogleマップ`}
+            title={shelter.name + "のGoogleマップ"}
             className="w-full"
           />
         </div>
@@ -202,7 +202,7 @@ export default async function ShelterDetailPage({
         </p>
       )}
 
-      {/* 位置 */}
+      {/* 地図 */}
       <section className="mt-8">
         <h2 className="mb-3 text-lg font-bold">
           地図
