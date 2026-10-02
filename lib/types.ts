@@ -45,19 +45,23 @@ export interface EmergencyContact {
   category: string
   phone: string
   description?: string
+  website?: string
 }
 
 export interface ChecklistItem {
   id: string
   category: string
-  item: string
+  label: string
+  note?: string
   checked?: boolean
 }
 
 export interface HazardLayer {
-  id: string
-  name: string
+  id: DisasterType
+  label: string
   url: string
   attribution: string
+  description: string
+  colorVar: string
   opacity: number
 }
