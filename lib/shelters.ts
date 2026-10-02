@@ -57,6 +57,9 @@ export const SHELTERS: Shelter[] = [
 
     petPolicy: "none",
 
+    googleMapEmbedUrl:
+      "https://www.google.com/maps/embed?pb=!4v1790945438871!6m8!1m7!1sYFu6L2uD9MZt5hU5vT9Svg!2m2!1d31.93037246974756!2d131.4281763781597!3f57.92124858094344!4f-7.408187516093449!5f0.7820865974627469",
+
     photo: [
       "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/6a976135-58f6-40fa-8407-052cd9cbc5ee.png",
     ],
@@ -112,6 +115,9 @@ export const SHELTERS: Shelter[] = [
 
     petPolicy: "同行避難",
 
+    googleMapEmbedUrl:
+      "https://www.google.com/maps/embed?pb=!4v1790945393121!6m8!1m7!1s5sDP0Hkp0hkUgomGOZmupg!2m2!1d31.92385526856301!2d131.4331302291804!3f247.42607945734775!4f2.6920161619773495!5f3.325193203789971",
+
     photo: [
       "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/b68f76c973f67a29efd3313d6311b49b26f466221aab22ef.webp",
     ],
@@ -166,6 +172,9 @@ export const SHELTERS: Shelter[] = [
 
     petPolicy: "none",
 
+    googleMapEmbedUrl:
+      "https://www.google.com/maps/embed?pb=!4v1790944937834!6m8!1m7!1sAAIo5V6jxsIC3dEK3TrFfg!2m2!1d31.93284474079937!2d131.4248363865397!3f78.93234516832682!4f0!5f0.7820865974627469",
+
     photo: [
       "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/images%20MiyazakiOomiya-hs.png",
     ],
@@ -219,6 +228,9 @@ export const SHELTERS: Shelter[] = [
 
     petPolicy: "none",
 
+    googleMapEmbedUrl:
+      "https://www.google.com/maps/embed?pb=!4v1790945056007!6m8!1m7!1sxkKXzIqoG5bGWe_pb_9Rng!2m2!1d31.93200309047402!2d131.4250415036665!3f88.23560509461495!4f6.496612781963066!5f1.7931592510991234",
+
     photo: [
       "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/east-area%E4%BA%A4%E6%B5%81%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC.jpg",
     ],
@@ -270,6 +282,9 @@ export const SHELTERS: Shelter[] = [
     openingHours: "災害時に開設",
 
     petPolicy: "同行避難",
+
+    googleMapEmbedUrl:
+      "https://www.google.com/maps/embed?pb=!4v1790945298027!6m8!1m7!1ssDT4Oam4lkfXdBe6hwOXqg!2m2!1d31.92453945672882!2d131.4235887080299!3f167.2179356742354!4f3.3917240110117604!5f2.957213357222776",
 
     photo: [
       "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/unnamed.webp",
@@ -328,6 +343,9 @@ export const SHELTERS: Shelter[] = [
 
     petPolicy: "none",
 
+    googleMapEmbedUrl:
+      "https://www.google.com/maps/embed?pb=!4v1790944889519!6m8!1m7!1sLJrQyrdS6r3_mCIRgKVsFA!2m2!1d31.91671366482377!2d131.4351254550732!3f333.05048!4f0!5f0.7820865974627469",
+
     photo: [
       "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-08-15%20kenntaiikukann.png",
     ],
@@ -381,6 +399,9 @@ export const SHELTERS: Shelter[] = [
     openingHours: "災害時に開設",
 
     petPolicy: "none",
+
+    googleMapEmbedUrl:
+      "https://www.google.com/maps/embed?pb=!4v1790945777054!6m8!1m7!1sFQYGwpVqcPklC902f0KIyw!2m2!1d31.91783966853516!2d131.4359564597513!3f79.0892925052725!4f7.8785879478497804!5f1.6934728285535585",
 
     photo: [
       "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-09-09%20220108.png",
@@ -436,6 +457,9 @@ export const SHELTERS: Shelter[] = [
     openingHours: "災害時に開設",
 
     petPolicy: "none",
+
+    googleMapEmbedUrl:
+      "https://www.google.com/maps/embed?pb=!4v1790945161539!6m8!1m7!1sma3HLfW5_lSxaJyyhew6Uw!2m2!1d31.91978024764163!2d131.4349775074373!3f87.3809777008691!4f-1.6608949154935146!5f0.7820865974627469",
 
     photo: [
       "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/ChatGPT%20Image%202026%E5%B9%B49%E6%9C%8810%E6%97%A5%2006_12_04.png",
@@ -544,6 +568,9 @@ export const SHELTERS: Shelter[] = [
     openingHours: "災害時に開設",
 
     petPolicy: "none",
+
+    googleMapEmbedUrl:
+      "https://www.google.com/maps/embed?pb=!4v1790944972269!6m8!1m7!1smKSpTpZg5QXdgJ5PzeXIZA!2m2!1d31.91004677731758!2d131.4263285676714!3f245.35364455056958!4f8.824220513867346!5f0.7820865974627469",
 
     photo: [
       "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/r5_00011_s.jpg",
