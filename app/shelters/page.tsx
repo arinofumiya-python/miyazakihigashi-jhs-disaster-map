@@ -38,21 +38,40 @@ export default function SheltersPage() {
       {/* ペット同行避難について */}
       <section className="mx-auto max-w-6xl px-4 pt-6">
         <div className="rounded-xl border border-border bg-muted/40 p-5">
-          <h2 className="mb-4 text-lg font-bold">🐾 ペット同行避難について</h2>
+          <h2 className="mb-4 text-lg font-bold">
+            🐾 ペット同行避難について（主に犬・猫・小動物・小鳥を想定）
+          </h2>
 
           <div className="space-y-4 text-sm leading-7">
-            <p>
-              災害時にペットと一緒に避難する場合は、各避難所の受け入れ条件を事前に確認してください。
-            </p>
+            <div>
+              <h3 className="font-semibold">ペット不可</h3>
+              <p>
+                ペットを連れて避難所へ避難することはできません。
+              </p>
+            </div>
 
-            <p>
-              避難所では、原則としてペットと人が同じスペースで過ごすことはできません。
-              ケージやキャリーなどを準備し、必要なペット用品も各自で用意してください。
-            </p>
+            <div>
+              <h3 className="font-semibold">同行避難</h3>
+              <p>
+                ペットを連れて避難所まで来ることができます。
+                避難所に到着した後は、ケージなどに入れて、
+                指定された場所でまとめて管理します。
+              </p>
+            </div>
 
-            <p>
-              ペット同行避難の可否や詳しいルールについては、災害発生時に宮崎市から発表される最新情報を確認してください。
-            </p>
+            <div>
+              <h3 className="font-semibold">同室避難不可</h3>
+              <p>
+                ペットと人が同じ部屋で過ごすことはできません。
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold">同室避難</h3>
+              <p>
+                ペットと一緒に避難所内部で過ごすことができます。
+              </p>
+            </div>
           </div>
         </div>
       </section>
