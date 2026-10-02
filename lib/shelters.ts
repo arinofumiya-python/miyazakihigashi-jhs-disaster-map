@@ -116,7 +116,7 @@ export const SHELTERS: Shelter[] = [
     petPolicy: "同行避難",
 
     googleMapEmbedUrl:
-      "https://www.google.com/maps/embed?pb=!4v1790945393121!6m8!1m7!1s5sDP0Hkp0hkUgomGOZmupg!2m2!1d31.92385526856301!2d131.4331302291804!3f247.42607945734775!4f2.6920161619773495!5f3.32519320397971",
+      "https://www.google.com/maps/embed?pb=!4v1790945393121!6m8!1m7!1s5sDP0Hkp0hkUgomGOZmupg!2m2!1d31.92385526856301!2d131.4331302291804!3f247.42607945734775!4f2.6920161619773495!5f3.325193203789971",
 
     photo: [
       "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/b68f76c973f67a29efd3313d6311b49b26f466221aab22ef.webp",
