@@ -17,26 +17,42 @@ export default function SheltersPage() {
     <div>
       <PageHeader
         title="避難所一覧"
-        description="地区内の避難所を地図と一覧で確認できます。検索・絞り込み・最寄り検索をご利用ください。"
+        description={
+          <>
+            地区内の避難所を地図と一覧で確認できます。検索・絞り込み・最寄り検索をご利用ください。
+            <br />
+            最新情報はこちらの{" "}
+            <a
+              href="https://www.city.miyazaki.miyazaki.jp/life/fire_department/shelter_info/o_shelter.html#%E6%8C%87%E5%AE%9A%E9%81%BF%E9%9B%A3%E6%89%80%E3%81%AE%E9%96%8B%E8%A8%AD%E7%8A%B6%E6%B3%81"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-primary"
+            >
+              宮崎市ホームページ
+            </a>
+            内からご確認ください。
+          </>
+        }
       />
 
+      {/* ペット同行避難について */}
       <section className="mx-auto max-w-6xl px-4 pt-6">
         <div className="rounded-xl border border-border bg-muted/40 p-5">
           <h2 className="mb-4 text-lg font-bold">
-            🐾 ペット同行避難について
+            🐾 ペット同行避難について（主に犬・猫・小動物・小鳥を想定）
           </h2>
 
           <div className="space-y-4 text-sm leading-7">
             <div>
-              <h3 className="font-bold">ペット不可</h3>
-              <p className="text-muted-foreground">
+              <h3 className="font-semibold">ペット不可</h3>
+              <p>
                 ペットを連れて避難所へ避難することはできません。
               </p>
             </div>
 
             <div>
-              <h3 className="font-bold">同行避難</h3>
-              <p className="text-muted-foreground">
+              <h3 className="font-semibold">同行避難</h3>
+              <p>
                 ペットを連れて避難所まで来ることができます。
                 避難所に到着した後は、ケージなどに入れて、
                 指定された場所でまとめて管理します。
@@ -44,15 +60,15 @@ export default function SheltersPage() {
             </div>
 
             <div>
-              <h3 className="font-bold">同室避難不可</h3>
-              <p className="text-muted-foreground">
+              <h3 className="font-semibold">同室避難不可</h3>
+              <p>
                 ペットと人が同じ部屋で過ごすことはできません。
               </p>
             </div>
 
             <div>
-              <h3 className="font-bold">同室避難</h3>
-              <p className="text-muted-foreground">
+              <h3 className="font-semibold">同室避難</h3>
+              <p>
                 ペットと一緒に避難所内部で過ごすことができます。
               </p>
             </div>
@@ -61,9 +77,7 @@ export default function SheltersPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 py-8">
-        <h2 className="mb-3 text-lg font-bold">
-          地図で見る
-        </h2>
+        <h2 className="mb-3 text-lg font-bold">地図で見る</h2>
 
         <div className="h-[60vh] min-h-80 overflow-hidden rounded-lg border border-border shadow-sm">
           <MapView shelters={shelters} />
@@ -71,9 +85,7 @@ export default function SheltersPage() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-12">
-        <h2 className="mb-3 text-lg font-bold">
-          一覧から探す
-        </h2>
+        <h2 className="mb-3 text-lg font-bold">一覧から探す</h2>
 
         <ShelterBrowser shelters={shelters} />
       </section>

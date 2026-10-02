@@ -444,30 +444,17 @@ export default function ChecklistPage() {
           チェック内容・メモ・追加項目はこのブラウザに自動保存されます。
         </p>
 
-        {/* 参考情報 */}
+        {/* 災害時のWi-Fi */}
         <div className="mt-4 rounded-lg border border-border bg-card p-4 text-sm">
           <p className="font-semibold">
-            参考情報
+            災害時のWi-Fiについて（00000JAPAN）
           </p>
 
-          <p className="mt-1">
-            <a
-              href="https://imacoco-navi.netlify.app/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary underline"
-            >
-              https://imacoco-navi.netlify.app/
-            </a>
-          </p>
-
-          <p className="mt-3 leading-6 text-muted-foreground">
-            <span className="font-semibold text-foreground">
-              備考
-            </span>
-            <br />
-            このURLは令和八年熊本地震を機に市民の方が立ち上げたHPです。
-            災害時にリアルに必要なものは何か考えるきっかけにしてください。
+          <p className="mt-2 leading-6 text-muted-foreground">
+            00000JAPANは、災害時に誰でも無料・登録不要で利用できる災害時の公衆無線LANサービスです。
+            スマホやPCのWi-Fiをオンにし、ネットワーク一覧から「00000JAPAN」を選択すると接続できます。
+            情報収集や安否確認に便利ですが、通信は暗号化されないため、個人情報やパスワードの入力は避けましょう。
+            （総務省ホームページより引用・一部抜粋）
           </p>
         </div>
       </div>
