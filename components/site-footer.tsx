@@ -51,6 +51,7 @@ export function SiteFooter() {
             >
               国土地理院ハザードマップポータルサイト
             </a>
+            {" / ©2026 Google"}
           </p>
 
           <p className="mt-2">
