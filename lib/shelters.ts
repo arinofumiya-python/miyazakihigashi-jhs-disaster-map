@@ -58,7 +58,7 @@ export const SHELTERS: Shelter[] = [
     petPolicy: "none",
 
     photo: [
-      "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/6a976135-58f6-40fa-8407-052cd9cbc5ee.png",
+      "https://raw.githubusercontent.com/arinofumiya-python/miyahigashi-disastermap/main/%E6%9D%B1%E4%B8%AD.jpg",
     ],
 
     description:
@@ -113,7 +113,7 @@ export const SHELTERS: Shelter[] = [
     petPolicy: "同行避難",
 
     photo: [
-      "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/b68f76c973f67a29efd3313d6311b49b26f466221aab22ef.webp",
+      "https://raw.githubusercontent.com/arinofumiya-python/miyahigashi-disastermap/main/%E4%BA%A4%E6%B5%81.jpg",
     ],
 
     description:
@@ -167,7 +167,7 @@ export const SHELTERS: Shelter[] = [
     petPolicy: "none",
 
     photo: [
-      "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/images%20MiyazakiOomiya-hs.png",
+      "https://raw.githubusercontent.com/arinofumiya-python/miyahigashi-disastermap/main/%E5%A4%A7%E5%AE%AE%E9%AB%98%E6%A0%A1.jpg",
     ],
 
     description:
@@ -220,7 +220,7 @@ export const SHELTERS: Shelter[] = [
     petPolicy: "none",
 
     photo: [
-      "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/east-area%E4%BA%A4%E6%B5%81%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC.jpg",
+      "https://raw.githubusercontent.com/arinofumiya-python/miyahigashi-disastermap/main/%E6%9D%B1%E5%8C%BA%E4%BA%A4%E6%B5%81%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC.jpg",
     ],
 
     description:
@@ -272,14 +272,14 @@ export const SHELTERS: Shelter[] = [
     petPolicy: "同行避難",
 
     photo: [
-      "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/unnamed.webp",
+      "https://raw.githubusercontent.com/arinofumiya-python/miyahigashi-disastermap/main/%E6%B1%9F%E5%B9%B3%E5%B0%8F%E5%AD%A6%E6%A0%A1.JPG",
     ],
 
     description:
       "宮崎市立江平小学校は、地震・風水害・津波に対応する指定避難所です。想定収容人数は448人です。",
 
     notes:
-      "オストメイト対応トイレなし。ペット同行避難可・同室避難不可。",
+      "オストメイト対応ト���レなし。ペット同行避難可・同室避難不可。",
 
     lastUpdated: "2026-08-16",
   },
@@ -329,7 +329,7 @@ export const SHELTERS: Shelter[] = [
     petPolicy: "none",
 
     photo: [
-      "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-08-15%20kenntaiikukann.png",
+      "https://raw.githubusercontent.com/arinofumiya-python/miyahigashi-disastermap/main/%E5%AE%AE%E5%B4%8E%E7%9C%8C%E4%BD%93%E8%82%B2%E9%A4%A8.jpg",
     ],
 
     description:
@@ -383,7 +383,7 @@ export const SHELTERS: Shelter[] = [
     petPolicy: "none",
 
     photo: [
-      "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-09-09%20220108.png",
+      "https://raw.githubusercontent.com/arinofumiya-python/miyahigashi-disastermap/main/%E6%97%A5%E5%90%91%E5%AD%A6%E9%99%A2.jpg",
     ],
 
     description:
@@ -439,7 +439,7 @@ export const SHELTERS: Shelter[] = [
 
 
     photo: [
-      "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/ChatGPT%20Image%202026%E5%B9%B49%E6%9C%8810%E6%97%A5%2006_12_04.png",
+      "https://raw.githubusercontent.com/arinofumiya-python/miyahigashi-disastermap/main/%E7%94%B7%E5%A5%B3%E5%85%B1%E5%90%8C%E5%8F%82%E7%94%BB%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC.jpg",
     ],
 
     description:
@@ -491,7 +491,7 @@ export const SHELTERS: Shelter[] = [
     petPolicy: "none",
 
     photo: [
-      "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202026-09-10%20062240.png",
+      "https://raw.githubusercontent.com/arinofumiya-python/miyahigashi-disastermap/main/%E4%B9%9D%E5%B7%9E%E6%A3%AE%E6%9E%97%E7%AE%A1%E7%90%86.jpg",
     ],
 
     description:
@@ -547,7 +547,7 @@ export const SHELTERS: Shelter[] = [
     petPolicy: "none",
 
     photo: [
-      "https://raw.githubusercontent.com/arinofumiya-python/miyazaki-bousai-images/main/r5_00011_s.jpg",
+      "https://raw.githubusercontent.com/arinofumiya-python/miyahigashi-disastermap/main/%E6%95%99%E8%82%B2%E6%83%85%E5%A0%B1%E3%82%BB%E3%83%B3%E3%82%BF%E3%83%BC.jpg",
     ],
 
     description:
