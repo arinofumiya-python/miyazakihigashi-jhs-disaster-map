@@ -80,22 +80,26 @@ export default async function ShelterDetailPage({
         </ul>
       </header>
 
-      {/* Google Maps */}
-      {shelter.googleMapEmbedUrl && (
-        <div className="mt-6 overflow-hidden rounded-lg border border-border">
-          <iframe
-            src={shelter.googleMapEmbedUrl}
-            width="100%"
-            height="350"
-            style={{ border: 0 }}
-            loading="lazy"
-            allowFullScreen
-            referrerPolicy="no-referrer-when-downgrade"
-            title={shelter.name + "のGoogleマップ"}
-            className="w-full"
-          />
-        </div>
-      )}
+      {shelter.photo?.length ? (
+        <section
+          className="mt-6 space-y-4"
+          aria-label={`${shelter.name}の施設写真`}
+        >
+          {shelter.photo.map((photo, index) => (
+            <div
+              key={`${photo}-${index}`}
+              className="overflow-hidden rounded-lg border border-border bg-secondary shadow-sm"
+            >
+              <img
+                src={photo}
+                alt={`${shelter.name}の施設写真 ${index + 1}`}
+                loading={index === 0 ? "eager" : "lazy"}
+                className="block h-auto max-h-[32rem] w-full object-contain"
+              />
+            </div>
+          ))}
+        </section>
+      ) : null}
 
       <p className="mt-6 leading-relaxed text-pretty">
         {shelter.description}
