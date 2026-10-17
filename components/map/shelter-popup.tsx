@@ -11,7 +11,20 @@ export function ShelterPopup({
   shelter: ShelterWithDistance
 }) {
   return (
-    <div className="min-w-56 max-w-64 text-foreground">
+    <div className="min-w-56 max-w-64 overflow-hidden text-foreground">
+      {shelter.photo?.length ? (
+        <div className="mb-3 space-y-2">
+          {shelter.photo.map((photo, index) => (
+            <img
+              key={`${photo}-${index}`}
+              src={photo}
+              alt={`${shelter.name}の施設写真 ${index + 1}`}
+              loading="lazy"
+              className="block h-auto max-h-48 w-full rounded-md object-contain"
+            />
+          ))}
+        </div>
+      ) : null}
 
       {/* 避難所名 */}
       <h3 className="text-base font-bold leading-tight">
