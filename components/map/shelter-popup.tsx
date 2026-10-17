@@ -13,20 +13,6 @@ export function ShelterPopup({
   return (
     <div className="min-w-56 max-w-64 text-foreground">
 
-      {/* =========================
-          Google Maps
-      ========================== */}
-      {shelter.googleMapEmbedUrl && (
-        <iframe
-          src={shelter.googleMapEmbedUrl}
-          title={`${shelter.name}のGoogle Maps`}
-          className="mb-3 h-48 w-full rounded-md border-0"
-          loading="lazy"
-          allowFullScreen
-          referrerPolicy="strict-origin-when-cross-origin"
-        />
-      )}
-
       {/* 避難所名 */}
       <h3 className="text-base font-bold leading-tight">
         {shelter.name}

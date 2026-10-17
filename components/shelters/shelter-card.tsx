@@ -27,23 +27,6 @@ export function ShelterCard({
         </div>
       ) : null}
 
-      {/* Googleマップ */}
-      {shelter.googleMapEmbedUrl ? (
-        <div className="relative aspect-[16/10] w-full overflow-hidden bg-secondary">
-          <iframe
-            src={shelter.googleMapEmbedUrl}
-            width="100%"
-            height="100%"
-            style={{ border: 0 }}
-            loading="lazy"
-            allowFullScreen
-            referrerPolicy="no-referrer-when-downgrade"
-            title={shelter.name + "のGoogleマップ"}
-            className="absolute inset-0 h-full w-full"
-          />
-        </div>
-      ) : null}
-
       <div className="flex flex-1 flex-col p-4">
         {/* 避難所名 */}
         <h3 className="text-lg font-bold leading-snug">

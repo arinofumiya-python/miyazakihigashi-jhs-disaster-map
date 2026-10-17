@@ -80,23 +80,6 @@ export default async function ShelterDetailPage({
         </ul>
       </header>
 
-      {/* Google Maps */}
-      {shelter.googleMapEmbedUrl && (
-        <div className="mt-6 overflow-hidden rounded-lg border border-border">
-          <iframe
-            src={shelter.googleMapEmbedUrl}
-            width="100%"
-            height="350"
-            style={{ border: 0 }}
-            loading="lazy"
-            allowFullScreen
-            referrerPolicy="no-referrer-when-downgrade"
-            title={shelter.name + "のGoogleマップ"}
-            className="w-full"
-          />
-        </div>
-      )}
-
       <p className="mt-6 leading-relaxed text-pretty">
         {shelter.description}
       </p>
