@@ -10,7 +10,7 @@ export function SiteFooter() {
             <p className="font-bold text-primary">{SITE_NAME}</p>
 
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-              本サイトは高校の防災プロジェクトとして制作された情報提供サイトです。
+              本サイトは中学の防災プロジェクトとして制作された情報提供サイトです。
               災害時は必ず宮崎市および気象庁などの公式発表を確認してください。
             </p>
           </div>
